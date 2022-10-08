@@ -1,0 +1,69 @@
+* c:\users\kruna\esim-workspace\amreen_kaur_jc\amreen_kaur_jc.cir
+
+.include "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130_fd_pr__model__linear.model.spice"
+.include "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130_fd_pr__model__r+c.model.spice"
+.include "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130_fd_pr__model__inductors.model.spice"
+.lib "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130.lib.spice" tt
+.include "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130_fd_pr__model__diode_pd2nw_11v0.model.spice"
+.include "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130_fd_pr__model__diode_pw2nd_11v0.model.spice"
+.include "C:\FOSSEE\eSim\library\sky130_fd_pr\models\sky130_fd_pr__model__pnp.model.spice"
+xsc2 b3ininv b3in gnd gnd sky130_fd_pr__nfet_01v8 W=2 L=1
+xsc1 b3ininv b3in net-_sc1-pad3_ net-_sc1-pad3_ sky130_fd_pr__pfet_01v8 W=4 L=1
+v2 net-_sc1-pad3_ gnd  dc 5
+* u1  b3in plot_v1
+* u2  b3ininv plot_v1
+* s c m o d e
+* u3  net-_u3-pad1_ net-_u3-pad2_ net-_u10-pad1_ amreen_dff
+* u4  net-_u3-pad1_ net-_u10-pad1_ net-_u10-pad2_ amreen_dff
+* u6  net-_u3-pad1_ net-_u10-pad2_ net-_u10-pad3_ amreen_dff
+* u8  net-_u3-pad1_ net-_u10-pad3_ net-_u10-pad4_ amreen_dff
+* u9  net-_u10-pad4_ b3in dac_bridge_1
+* u5  b3ininv net-_u3-pad2_ adc_bridge_1
+v3  clk gnd pulse(0 5 0.1n 0.1n 0.1n 0.0025 0.005)
+* u7  clk net-_u3-pad1_ adc_bridge_1
+* u10  net-_u10-pad1_ net-_u10-pad2_ net-_u10-pad3_ net-_u10-pad4_ b0 b1 b2 b3 dac_bridge_4
+* u11  b0 plot_v1
+* u12  b1 plot_v1
+* u13  b2 plot_v1
+* u14  b3 plot_v1
+* u15  clk plot_v1
+a1 [net-_u3-pad1_ ] [net-_u3-pad2_ ] [net-_u10-pad1_ ] u3
+a2 [net-_u3-pad1_ ] [net-_u10-pad1_ ] [net-_u10-pad2_ ] u4
+a3 [net-_u3-pad1_ ] [net-_u10-pad2_ ] [net-_u10-pad3_ ] u6
+a4 [net-_u3-pad1_ ] [net-_u10-pad3_ ] [net-_u10-pad4_ ] u8
+a5 [net-_u10-pad4_ ] [b3in ] u9
+a6 [b3ininv ] [net-_u3-pad2_ ] u5
+a7 [clk ] [net-_u3-pad1_ ] u7
+a8 [net-_u10-pad1_ net-_u10-pad2_ net-_u10-pad3_ net-_u10-pad4_ ] [b0 b1 b2 b3 ] u10
+* Schematic Name:                             amreen_dff, NgSpice Name: amreen_dff
+.model u3 amreen_dff(rise_delay=1.0e-9 fall_delay=1.0e-9 input_load=1.0e-12 instance_id=1 ) 
+* Schematic Name:                             amreen_dff, NgSpice Name: amreen_dff
+.model u4 amreen_dff(rise_delay=1.0e-9 fall_delay=1.0e-9 input_load=1.0e-12 instance_id=1 ) 
+* Schematic Name:                             amreen_dff, NgSpice Name: amreen_dff
+.model u6 amreen_dff(rise_delay=1.0e-9 fall_delay=1.0e-9 input_load=1.0e-12 instance_id=1 ) 
+* Schematic Name:                             amreen_dff, NgSpice Name: amreen_dff
+.model u8 amreen_dff(rise_delay=1.0e-9 fall_delay=1.0e-9 input_load=1.0e-12 instance_id=1 ) 
+* Schematic Name:                             dac_bridge_1, NgSpice Name: dac_bridge
+.model u9 dac_bridge(out_low=0.0 out_high=5.0 out_undef=0.5 input_load=1.0e-12 t_rise=1.0e-9 t_fall=1.0e-9 ) 
+* Schematic Name:                             adc_bridge_1, NgSpice Name: adc_bridge
+.model u5 adc_bridge(in_low=0.2 in_high=4.5 rise_delay=1.0e-9 fall_delay=1.0e-9 ) 
+* Schematic Name:                             adc_bridge_1, NgSpice Name: adc_bridge
+.model u7 adc_bridge(in_low=0.2 in_high=4.5 rise_delay=1.0e-9 fall_delay=1.0e-9 ) 
+* Schematic Name:                             dac_bridge_4, NgSpice Name: dac_bridge
+.model u10 dac_bridge(out_low=0.0 out_high=5.0 out_undef=0.5 input_load=1.0e-12 t_rise=1.0e-9 t_fall=1.0e-9 ) 
+.tran 0.0001e-00 0.01e-00 0e-00
+
+* Control Statements 
+.control
+run
+print allv > plot_data_v.txt
+print alli > plot_data_i.txt
+plot v(b3in)
+plot v(b3ininv)
+plot v(b0)
+plot v(b1)
+plot v(b2)
+plot v(b3)
+plot v(clk)
+.endc
+.end

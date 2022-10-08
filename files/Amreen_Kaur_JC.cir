@@ -1,0 +1,30 @@
+* C:\Users\kruna\eSim-Workspace\Amreen_Kaur_JC\Amreen_Kaur_JC.cir
+
+* EESchema Netlist Version 1.1 (Spice format) creation date: 10/07/22 18:23:57
+
+* To exclude a component from the Spice Netlist add [Spice_Netlist_Enabled] user FIELD set to: N
+* To reorder the component spice node sequence add [Spice_Node_Sequence] user FIELD and define sequence: 2,1,0
+
+* Sheet Name: /
+SC2  b3ininv b3in GND GND sky130_fd_pr__nfet_01v8		
+SC1  b3ininv b3in Net-_SC1-Pad3_ Net-_SC1-Pad3_ sky130_fd_pr__pfet_01v8		
+v2  Net-_SC1-Pad3_ GND DC		
+U1  b3in plot_v1		
+U2  b3ininv plot_v1		
+scmode1  SKY130mode		
+U3  Net-_U3-Pad1_ Net-_U3-Pad2_ Net-_U10-Pad1_ amreen_dff		
+U4  Net-_U3-Pad1_ Net-_U10-Pad1_ Net-_U10-Pad2_ amreen_dff		
+U6  Net-_U3-Pad1_ Net-_U10-Pad2_ Net-_U10-Pad3_ amreen_dff		
+U8  Net-_U3-Pad1_ Net-_U10-Pad3_ Net-_U10-Pad4_ amreen_dff		
+U9  Net-_U10-Pad4_ b3in dac_bridge_1		
+U5  b3ininv Net-_U3-Pad2_ adc_bridge_1		
+v3  clk GND pulse		
+U7  clk Net-_U3-Pad1_ adc_bridge_1		
+U10  Net-_U10-Pad1_ Net-_U10-Pad2_ Net-_U10-Pad3_ Net-_U10-Pad4_ b0 b1 b2 b3 dac_bridge_4		
+U11  b0 plot_v1		
+U12  b1 plot_v1		
+U13  b2 plot_v1		
+U14  b3 plot_v1		
+U15  clk plot_v1		
+
+.end
